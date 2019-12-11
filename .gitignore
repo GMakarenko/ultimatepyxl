@@ -1,0 +1,23 @@
+\.tox
+syntax: regexp
+\.pyc$
+\.pytest
+(build|dist|editpyxl.egg-info)
+\.(dot|svg|pf)
+\.noseids
+\.*\.swp
+\.*\.DS_Store
+\.*\.~.*
+syntax: glob
+*~
+*.orig
+.idea
+*.pstats
+*.png
+*.sh
+.git
+travis.yml
+atlassian-ide-plugin.xml
+Vagrantfile
+vagrant-bootstrap.sh
+.vagrant/*
