@@ -21,8 +21,12 @@
 # @license: http://www.opensource.org/licenses/mit-license.php
 # @author: see AUTHORS file
 
+from datetime import date
 from logging import getLogger
+
 from lxml import etree
+from openpyxl.utils.datetime import to_excel
+
 from editpyxl.constants import SHEET_MAIN_NS
 
 log = getLogger('editpyxl')
@@ -32,6 +36,7 @@ class Cell(object):
     """
     Sub-class for ExcelWorksheet, to allow similar interface to openpyxl, ie ws.cell().value
     """
+
     def __init__(self, worksheet, cell, name):
         self.ws = worksheet
         self.cell = cell
@@ -115,6 +120,10 @@ class Cell(object):
     @value.setter
     def value(self, v):
         """Update an excel cell and return the value.  If value is not specified, return the current cell value."""
+        is_date = "s" in self.cell.attrib
+        if is_date:
+            assert isinstance(v, date), ValueError(f"Expected type: {date}, got {type(v)}")
+            v = to_excel(v)
         v = str(v) if v is not None else ''
         f_xml = self.cell.find('{0}f'.format(SHEET_MAIN_NS))
         if f_xml is not None:
