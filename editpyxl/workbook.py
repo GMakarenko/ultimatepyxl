@@ -215,7 +215,7 @@ class Workbook(object):
         sheet_xml = self.xmls['xl/workbook.xml'].find('{0}sheets/{0}sheet[@name="{1}"]'.format(SHEET_MAIN_NS, name))
         if sheet_xml is not None:
             sheet = sheet_xml.attrib
-            return 'xl/worksheets/sheet{0}.xml'.format(sheet['{0}id'.format(RELATIONSHIPS_NS)][3:])
+            return 'xl/worksheets/sheet{0}.xml'.format(sheet["sheetId"])
         else:
             log.warn('Unknown sheet: {0}'.format(name))
             return None
